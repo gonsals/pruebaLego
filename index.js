@@ -1,11 +1,20 @@
-const axios = require("axios");
 const cheerio = require("cheerio");
 const nodemailer = require("nodemailer");
+const puppeteer = require("puppeteer");
 
 async function scrapeWebsite(url) {
     try {
-        const response = await axios.get(url);
-        const $ = cheerio.load(response.data);
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url);
+
+        // Scroll hasta el final de la página
+        await autoScroll(page);
+
+        const html = await page.content();
+        await browser.close();
+
+        const $ = cheerio.load(html);
         const events = [];
 
         $("li").each((index, element) => {
@@ -13,24 +22,52 @@ async function scrapeWebsite(url) {
             const pText = $(element).find("p").text();
 
             if (h3Text.includes("casa")) {
-                // Divide el texto del pText en eventos individuales
+                const img = $(element)
+                    .find("div.jJjagp picture img")
+                    .attr("src");
+
+                // Modificar la URL de la imagen para eliminar los parámetros no deseados
+                const modifiedImageUrl = img.replace(/\?.*$/, "");
+
                 const eventDetails = pText.match(
                     /\d{1,2}\/\d{1,2} - De \d{1,2}:\d{2} a \d{1,2}:\d{2}/g
                 );
 
-                // Agrega cada evento a la lista de eventos
                 eventDetails.forEach((eventDetail) => {
-                    events.push({ text: h3Text, time: eventDetail });
+                    events.push({
+                        text: h3Text,
+                        time: eventDetail,
+                        img: img,
+                    });
                 });
             }
         });
 
         if (events.length > 0) {
+            console.log(events);
             sendEmail(events);
         }
     } catch (error) {
         console.error("Error scraping website:", error);
     }
+}
+
+async function autoScroll(page) {
+    await page.evaluate(async () => {
+        await new Promise((resolve, reject) => {
+            let totalHeight = 0;
+            const distance = 100;
+            const timer = setInterval(() => {
+                const scrollHeight = document.body.scrollHeight;
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                if (totalHeight >= scrollHeight) {
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 100);
+        });
+    });
 }
 
 async function sendEmail(events) {
@@ -48,13 +85,24 @@ async function sendEmail(events) {
         // Genera un enlace para agregar el evento al calendario de Google
         const googleCalendarLink = generateGoogleCalendarLink(event);
 
+        const fullImageUrl = event.img.replace(/\?.*$/, "");
+
         // Agrega el evento al contenido del correo electrónico
-        emailContent += `<p><strong>${event.text}</strong><br>${event.time} <a href="${googleCalendarLink}">(Agregar al calendario)</a></p>`;
+        emailContent += `
+            <div style="margin-bottom: 20px;">
+                <img src="${fullImageUrl}" alt="Lego Eventos" style="width: 40%; height: auto;">
+                <p style="margin-top: 10px;"><strong>${event.text}</strong><br>${event.time} <a href="${googleCalendarLink}" style="color: #1976D2; text-decoration: none;">(Agregar al calendario)</a></p>
+            </div>
+        `;
     });
 
     const mailOptions = {
         from: "legoeventosnotification@gmail.com",
-        to: "mariablade2000@gmail.com",
+        to: [
+            "legoeventosnotification@gmail.com",
+            "marcgonzaleztarrio@gmail.com",
+            "mariablade2000@gmail.com",
+        ],
         subject: "Eventos encontrados",
         html: emailContent,
     };
@@ -86,7 +134,6 @@ function generateGoogleCalendarLink(event) {
 function parseEventTime(timeString) {
     const regex = /(\d{1,2}\/\d{1,2}) - De (\d{1,2}:\d{2}) a (\d{1,2}:\d{2})/g;
     const matches = timeString.match(regex);
-    console.log(matches);
     if (!matches) {
         return [null, null];
     }
