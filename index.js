@@ -6,7 +6,7 @@ async function scrapeWebsite(url) {
     try {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.goto(url);
+        await page.goto("https://www.lego.com/es-es/stores/store/barcelona");
 
         // Scroll hasta el final de la página
         await autoScroll(page);
@@ -25,9 +25,6 @@ async function scrapeWebsite(url) {
                 const img = $(element)
                     .find("div.jJjagp picture img")
                     .attr("src");
-
-                // Modificar la URL de la imagen para eliminar los parámetros no deseados
-                const modifiedImageUrl = img.replace(/\?.*$/, "");
 
                 const eventDetails = pText.match(
                     /\d{1,2}\/\d{1,2} - De \d{1,2}:\d{2} a \d{1,2}:\d{2}/g
@@ -187,4 +184,4 @@ function formatDate(date) {
     return `${year}${month}${day}T${hours}${minutes}00`;
 }
 
-scrapeWebsite("https://www.lego.com/es-es/stores/store/barcelona");
+scrapeWebsite();
