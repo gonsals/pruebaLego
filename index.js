@@ -1,12 +1,21 @@
-const cron = require("node-cron");
+const express = require("express");
 const scrapeAndSendEmails = require("./scrapeAndSendEmails");
-const cronitor = require("cronitor")(process.env.CRONITOR_API_KEY);
 
-cron.schedule("0 8 * * 1", () => {
-    cronitor.wrap("scrapeAndSendEmails", function () {
-        console.log(
-            "Ejecutando scrape y envío de correos electrónicos con monitoreo!"
-        );
-        scrapeAndSendEmails();
-    });
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get("/sendLego", async (req, res) => {
+    try {
+        // await scrapeAndSendEmails();
+        console.log("prueba1");
+        res.status(200).send("scrapeAndSendEmails() llamado correctamente");
+    } catch (error) {
+        console.error("Error al llamar a scrapeAndSendEmails():", error);
+        res.status(500).send("Error al llamar a scrapeAndSendEmails()");
+    }
+});
+
+// Inicia el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor Express escuchando en el puerto ${PORT}`);
 });
