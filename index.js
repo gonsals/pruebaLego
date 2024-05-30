@@ -1,5 +1,6 @@
 const express = require("express");
 const scrapeAndSendEmails = require("./scrapeAndSendEmails");
+const sendEmail = ("./scrapeAndSendEmails.js")
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.get("/sendLego", async (req, res) => {
     try {
         // await scrapeAndSendEmails();
+        await sendEmail([{ img: "google.com", text: "prueba", time: 12 }])
         console.log("prueba1");
         res.status(200).send("scrapeAndSendEmails() llamado correctamente");
     } catch (error) {
