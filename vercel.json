@@ -1,6 +1,8 @@
 {
-    "name": "lego-scraper",
-    "version": 2,
-    "builds": [{ "src": "index.js", "use": "@vercel/node" }],
-    "routes": [{ "src": "/.*", "dest": "/index.js" }]
+    "crons": [
+        {
+            "path": "/sendLego",
+            "schedule": "5 3 * * *"
+        }
+    ]
 }
