@@ -145,3 +145,13 @@ test('La configuración falla antes de enviar si faltan canales o persistencia e
     assert.throws(() => validateDelivery(getConfig({ EMAIL_ENABLED: 'false', GOOGLE_CALENDAR_ENABLED: 'true' })), /Calendar/);
     assert.throws(() => validateDelivery(getConfig({ VERCEL: '1', GMAIL_USER: 'test@example.com', GMAIL_PASSWORD: 'test' })), /REDIS/);
 });
+
+test('La integración Redis de Vercel funciona con las variables KV y conserva prioridad de Upstash', () => {
+    const config = getConfig({ VERCEL: '1', GMAIL_USER: 'test@example.com', GMAIL_PASSWORD: 'test', KV_REST_API_URL: 'https://redis.example.com', KV_REST_API_TOKEN: 'token' });
+    assert.equal(config.redisUrl, 'https://redis.example.com');
+    assert.equal(config.redisToken, 'token');
+    assert.doesNotThrow(() => validateDelivery(config));
+    const explicit = getConfig({ UPSTASH_REDIS_REST_URL: 'https://explicit.example.com', UPSTASH_REDIS_REST_TOKEN: 'explicit', KV_REST_API_URL: 'https://redis.example.com', KV_REST_API_TOKEN: 'token' });
+    assert.equal(explicit.redisUrl, 'https://explicit.example.com');
+    assert.equal(explicit.redisToken, 'explicit');
+});

@@ -1,0 +1,8 @@
+.git/
+.vercel/
+.data/
+.env*
+node_modules/
+coverage/
+test/
+scripts/

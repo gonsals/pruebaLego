@@ -58,10 +58,22 @@ En aplicaciones externas de Google que permanecen en modo de prueba, los refresh
 
 Para desplegar, configura las variables de Google en Vercel por su panel de entorno; no publiques `.env.local` ni pegues tokens en registros. Usa credenciales diferentes para pruebas y producción si ambas van a sincronizar calendarios.
 
+## Calendario por suscripción, sin contraseña de Gmail ni OAuth
+
+Activa `CALENDAR_FEED_ENABLED=true`, configura un `CALENDAR_FEED_TOKEN` aleatorio de al menos 32 caracteres y, si quieres usar únicamente esta opción, deja `EMAIL_ENABLED=false` y `GOOGLE_CALENDAR_ENABLED=false`.
+
+El cron guarda los eventos confirmados en Redis. El calendario se publica en `https://TU-DOMINIO/calendar/TU-TOKEN.ics`; su consulta no envía correos ni vuelve a consultar LEGO. Mantén privada esa URL.
+
+En Google Calendar desde el ordenador, abre **Otros calendarios → + → Desde URL**, pega la dirección completa y añade el calendario. Los eventos aparecen en un calendario separado, de solo lectura, sin necesidad de un cliente OAuth. Se puede usar también con otros clientes que admitan suscripciones iCalendar. [Instrucciones de Google](https://support.google.com/calendar/answer/37100?hl=es).
+
+Google decide cuándo vuelve a descargar los calendarios externos: los cambios del cron no aparecen de forma instantánea. El servidor conserva los eventos confirmados cuando un anuncio desaparece, hasta que terminen; retira los que cambian a promoción con compra o dejan de estar confirmados. Si LEGO falla temporalmente, se conserva la última información válida disponible.
+
+El archivo `.vercelignore` evita subir archivos `.env`, datos locales, pruebas y dependencias instaladas al despliegue.
+
 ## Estado, duplicados y recuperación
 
 - En local se guarda `.data/state.json`, con escritura atómica y bloqueo entre procesos. También puede usarse en un servidor con volumen persistente y un planificador externo.
-- En Vercel es obligatorio conectar **Upstash Redis** y configurar `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`. El disco temporal de una función no sirve para evitar duplicados.
+- En Vercel es obligatorio conectar **Upstash Redis**. Se admiten `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, o las variables `KV_REST_API_URL` y `KV_REST_API_TOKEN` que añade la integración de Vercel. El disco temporal de una función no sirve para evitar duplicados.
 - Se registran por separado los correos enviados y las sesiones sincronizadas. Si un canal falla, el siguiente intento reanuda ese canal sin repetir los que terminaron correctamente.
 - Los eventos de Google tienen identificadores deterministas; un reintento o cambio de horario actualiza el evento existente.
 - El bloqueo de Redis dura diez minutos; el trabajo tiene un presupuesto de cuatro minutos y comprueba el bloqueo antes de escribir o enviar. El bloqueo local tiene comprobación periódica de actividad.
