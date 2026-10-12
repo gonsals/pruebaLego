@@ -8,6 +8,10 @@ dist-ssr
 *.local
 
 .env
+.env.*
+!.env.example
+.data/
+coverage/
 
 # Editor directories and files
 .vscode/*
