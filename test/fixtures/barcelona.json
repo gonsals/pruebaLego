@@ -1,0 +1,170 @@
+{
+  "capturedAt": "2026-10-12T01:49:51.298Z",
+  "store": {
+    "name": "LEGO® Store Barcelona",
+    "streetAddress": "Passeig de Gràcia 9",
+    "city": "Barcelona",
+    "postalCode": "08007",
+    "events": [
+      {
+        "eventId": "bltb86d1b515a43e580",
+        "urlKey": "little-builder-classes-es",
+        "heading": "Clases para Pequeños Constructores",
+        "subHeading": null,
+        "thumbnailImage": {
+          "large": {
+            "url": "https://www.lego.com/cdn/cs/set/assets/bltc1989f82b664f425/Little_Builders_-_store_page_asset.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+          }
+        }
+      },
+      {
+        "eventId": "blt736f7e1aac6d3297",
+        "urlKey": "insider-private-shopping-event-es",
+        "heading": "Evento Privado de Compras para miembros del programa Insiders",
+        "subHeading": null,
+        "thumbnailImage": {
+          "large": {
+            "url": "https://www.lego.com/cdn/cs/set/assets/bltae44230549512d8f/Holiday-202608-Landing-Stores-Content-Block-Large.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+          }
+        }
+      },
+      {
+        "eventId": "bltb3f8f5b1910f51f2",
+        "urlKey": "meet-the-designer-la-sagrada",
+        "heading": "CONOCE AL DISEÑADOR",
+        "subHeading": "31/10/2026 | 9.30 h - 11.00 h",
+        "thumbnailImage": {
+          "large": {
+            "url": "https://www.lego.com/cdn/cs/set/assets/blt54a37a528660c000/Sagrada_Store_Page_(1).png?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+          }
+        }
+      },
+      {
+        "eventId": "blt5cc8fe15328ce364",
+        "urlKey": "halloween-hunt-in-store-gbieesbe",
+        "heading": "¡Únete a la búsqueda de Halloween en tienda!",
+        "subHeading": "Del 24 al 31 de octubre",
+        "thumbnailImage": {
+          "large": {
+            "url": "https://www.lego.com/cdn/cs/set/assets/blt02606e744ba55d95/LEGO-HalloweenHunt-StorePage-1280x720.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+          }
+        }
+      },
+      {
+        "eventId": "bltb513f1da58905969",
+        "urlKey": "ghost-street-barcelona",
+        "heading": "¡Construye una Calle fantasmal LEGO® y llévatela a casa!",
+        "subHeading": "24/10 - De 10:00 h a 14:00 h",
+        "thumbnailImage": {
+          "large": {
+            "url": "https://www.lego.com/cdn/cs/set/assets/bltf755686290488393/Halloween_StorePage_V2.png?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+          }
+        }
+      }
+    ],
+    "slug": "barcelona",
+    "source": "graphql"
+  },
+  "events": [
+    {
+      "eventId": "bltb86d1b515a43e580",
+      "urlKey": "little-builder-classes-es",
+      "heading": "Clases para Pequeños Constructores",
+      "subHeading": null,
+      "thumbnailImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltc1989f82b664f425/Little_Builders_-_store_page_asset.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+        }
+      },
+      "body": "<p>¡Invitamos a los niños a aprender jugando en las Clases para Pequeños Constructores de las tiendas LEGO® Store! <p/>\n<p>Apúntate a un taller gratuito en una tienda LEGO Store con tu peque de 2 a 5 años<p/>\n<p>¡Introduce a tu peque en la construcción con las Clases para Pequeños Constructores de las tiendas LEGO® Store! <p/>\n<p>Cada clase combina habilidades de desarrollo y juego práctico en un divertido evento que a tu peque de 2 a 5 años le encantará<p/>\n<p><a href=\"https://lego-barcelona.appointedd.com/booking-widget/69c1703ebbe79813ef0b1d7a\">Apúntate </a> hoy para reservar tu plaza en una de las Clases para Pequeños Constructores que organizamos mensualmente<p/>\n<p><i>Evento recomendado para niños de 2 a 5 años acompañados de un adulto. </i><p/>",
+      "primaryImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltc1989f82b664f425/Little_Builders_-_store_page_asset.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+        }
+      },
+      "description": "¡Invitamos a los niños a aprender jugando en las Clases para Pequeños Constructores de las tiendas LEGO® Store! \n\n\nApúntate a un taller gratuito en una tienda LEGO Store con tu peque de 2 a 5 años\n\n\n¡Introduce a tu peque en la construcción con las Clases para Pequeños Constructores de las tiendas LEGO® Store! \n\n\nCada clase combina habilidades de desarrollo y juego práctico en un divertido evento que a tu peque de 2 a 5 años le encantará\n\n\nApúntate hoy para reservar tu plaza en una de las Clases para Pequeños Constructores que organizamos mensualmente\n\n\nEvento recomendado para niños de 2 a 5 años acompañados de un adulto.",
+      "url": "https://www.lego.com/es-es/stores/events/little-builder-classes-es",
+      "image": "https://www.lego.com/cdn/cs/set/assets/bltc1989f82b664f425/Little_Builders_-_store_page_asset.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+    },
+    {
+      "eventId": "blt736f7e1aac6d3297",
+      "urlKey": "insider-private-shopping-event-es",
+      "heading": "Evento Privado de Compras para miembros del programa Insiders",
+      "subHeading": null,
+      "thumbnailImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltae44230549512d8f/Holiday-202608-Landing-Stores-Content-Block-Large.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+        }
+      },
+      "body": "¡Esto te interesa, LEGO Insider!<p/>\n¿Quieres adelantar tus compras para estas fiestas y encontrar regalos perfectos?<p/>\n¡Apúntate a nuestro Evento Privado de Compras y simplifica tus compras para estas fiestas!<p/>\nPodrás comprar en tu tienda LEGO Store antes de que abra al público y recibir recomendaciones personalizadas por parte de nuestros expertos dependientes sobre los mejores regalos para cada nombre de tu lista.<p/>\nAdemás, tendrás acceso a obsequios, así como a una actividad de construcción exclusiva. <p/>\nLas plazas son limitadas: reserva la tuya hoy mismo.<p/>\n<a href=\"https://lego-barcelona.appointedd.com/booking-widget/6aa2d3febf937a046b837e6c\">https://lego-barcelona.appointedd.com/booking-widget/6aa2d3febf937a046b837e6c</a><p/>\nDebes ser miembro del programa LEGO Insiders para asistir.<p/>\n¿No eres miembro del programa Insiders? Regístrate fácilmente y gratis en LEGO.com/Insiders<p/>\nEste evento está recomendado para adultos.",
+      "primaryImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltae44230549512d8f/Holiday-202608-Landing-Stores-Content-Block-Large.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+        }
+      },
+      "description": "¡Esto te interesa, LEGO Insider!\n¿Quieres adelantar tus compras para estas fiestas y encontrar regalos perfectos?\n\n¡Apúntate a nuestro Evento Privado de Compras y simplifica tus compras para estas fiestas!\n\nPodrás comprar en tu tienda LEGO Store antes de que abra al público y recibir recomendaciones personalizadas por parte de nuestros expertos dependientes sobre los mejores regalos para cada nombre de tu lista.\n\nAdemás, tendrás acceso a obsequios, así como a una actividad de construcción exclusiva. \n\nLas plazas son limitadas: reserva la tuya hoy mismo.\n\nhttps://lego-barcelona.appointedd.com/booking-widget/6aa2d3febf937a046b837e6c\n\nDebes ser miembro del programa LEGO Insiders para asistir.\n\n¿No eres miembro del programa Insiders? Regístrate fácilmente y gratis en LEGO.com/Insiders\n\nEste evento está recomendado para adultos.",
+      "url": "https://www.lego.com/es-es/stores/events/insider-private-shopping-event-es",
+      "image": "https://www.lego.com/cdn/cs/set/assets/bltae44230549512d8f/Holiday-202608-Landing-Stores-Content-Block-Large.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+    },
+    {
+      "eventId": "bltb3f8f5b1910f51f2",
+      "urlKey": "meet-the-designer-la-sagrada",
+      "heading": "CONOCE AL DISEÑADOR",
+      "subHeading": "31/10/2026 | 9.30 h - 11.00 h",
+      "thumbnailImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/blt54a37a528660c000/Sagrada_Store_Page_(1).png?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+        }
+      },
+      "body": "<h2><strong>CONOCE AL DISEÑADOR</strong></h2>\n<p>El sábado <strong>31 de octubre</strong>, conoce al diseñador de LEGO Rok Žgalin Kobe, la mente creativa que hay detrás del nuevo set LEGO® Architecture «La Sagrada Familia». Haz que te firme tu nuevo set y sé uno de los primeros en llevarte a casa este magnífico nuevo lanzamiento de LEGO. Apúntate la fecha y acércate a la tienda LEGO de Barcelona.</p>\n<p>LEGO Store Barcelona</p>\n<p>9.30 h - 11.00 h</p>\n<p><small>Dos sets máximo por persona.</p>\n<p>Hasta fi n de existencias.</small></p>",
+      "primaryImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/blt54a37a528660c000/Sagrada_Store_Page_(1).png?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+        }
+      },
+      "description": "CONOCE AL DISEÑADOR\n\nEl sábado 31 de octubre, conoce al diseñador de LEGO Rok Žgalin Kobe, la mente creativa que hay detrás del nuevo set LEGO® Architecture «La Sagrada Familia». Haz que te firme tu nuevo set y sé uno de los primeros en llevarte a casa este magnífico nuevo lanzamiento de LEGO. Apúntate la fecha y acércate a la tienda LEGO de Barcelona.\n\nLEGO Store Barcelona\n\n9.30 h - 11.00 h\n\nDos sets máximo por persona.\n\nHasta fi n de existencias.",
+      "url": "https://www.lego.com/es-es/stores/events/meet-the-designer-la-sagrada",
+      "image": "https://www.lego.com/cdn/cs/set/assets/blt54a37a528660c000/Sagrada_Store_Page_(1).png?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+    },
+    {
+      "eventId": "blt5cc8fe15328ce364",
+      "urlKey": "halloween-hunt-in-store-gbieesbe",
+      "heading": "¡Únete a la búsqueda de Halloween en tienda!",
+      "subHeading": "Del 24 al 31 de octubre",
+      "thumbnailImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/blt02606e744ba55d95/LEGO-HalloweenHunt-StorePage-1280x720.jpg?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+        }
+      },
+      "body": "<h2><strong>¡Únete a la búsqueda de Halloween en tienda!</strong></h2>\n<p>Visita una LEGO® Store, si te atreves, y participa en una búsqueda de terroríficas criaturas de ladrillos del <strong>24 al 31 de octubre</strong>.</p>\n<p>Encuentra las terroríficas criaturas escondidas por la tienda y consigue una sorpresa (hasta fin de existencias).</p>\n<p><em>Términos y condiciones</em></p>\n<p>Hasta fin de existencias.</p>\n<p>Los modelos de las terroríficas criaturas LEGO no están a la venta.</p>",
+      "primaryImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/blt02606e744ba55d95/LEGO-HalloweenHunt-StorePage-1280x720.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+        }
+      },
+      "description": "¡Únete a la búsqueda de Halloween en tienda!\n\nVisita una LEGO® Store, si te atreves, y participa en una búsqueda de terroríficas criaturas de ladrillos del 24 al 31 de octubre.\n\nEncuentra las terroríficas criaturas escondidas por la tienda y consigue una sorpresa (hasta fin de existencias).\n\nTérminos y condiciones\n\nHasta fin de existencias.\n\nLos modelos de las terroríficas criaturas LEGO no están a la venta.",
+      "url": "https://www.lego.com/es-es/stores/events/halloween-hunt-in-store-gbieesbe",
+      "image": "https://www.lego.com/cdn/cs/set/assets/blt02606e744ba55d95/LEGO-HalloweenHunt-StorePage-1280x720.jpg?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+    },
+    {
+      "eventId": "bltb513f1da58905969",
+      "urlKey": "ghost-street-barcelona",
+      "heading": "¡Construye una Calle fantasmal LEGO® y llévatela a casa!",
+      "subHeading": "24/10 - De 10:00 h a 14:00 h",
+      "thumbnailImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltf755686290488393/Halloween_StorePage_V2.png?fit=crop&format=jpg&quality=80&width=415&height=276&dpr=1"
+        }
+      },
+      "body": "<h2><strong>¡Construye una Calle fantasmal LEGO® y llévatela a casa!</strong></h2>\n<p><strong>24/10</strong> - De <strong>10:00</strong> h a <strong>14:00</strong> h</p>\n<p>Cada día habrá disponible una cantidad limitada.</p>\n<p><em>Términos y condiciones</em></p>\n<p>La Calle fantasmal LEGO® se entregará por orden de llegada.</p>\n<p>Promoción válida hasta fin de existencias.</p>\n<p>La oferta del modelo de la Calle fantasmal LEGO® para construir solo es válida el día <strong>24/10</strong>.</p>\n<p>Promoción limitada a un modelo de Calle fantasmal LEGO® por persona.</p>\n<p>El modelo de la Calle fantasmal LEGO® para construir no está a la venta.</p>\n<p>Esta actividad va dirigida a peques de seis años en adelante y puede no ser apropiada para una franja de edad inferior.</p>\n<p>Promoción disponible en las tiendas participantes.</p>\n<p>La fecha y las horas mencionadas anteriormente corresponden solo a la LEGO® Store Barcelona.</p>",
+      "primaryImage": {
+        "large": {
+          "url": "https://www.lego.com/cdn/cs/set/assets/bltf755686290488393/Halloween_StorePage_V2.png?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+        }
+      },
+      "description": "¡Construye una Calle fantasmal LEGO® y llévatela a casa!\n\n24/10 - De 10:00 h a 14:00 h\n\nCada día habrá disponible una cantidad limitada.\n\nTérminos y condiciones\n\nLa Calle fantasmal LEGO® se entregará por orden de llegada.\n\nPromoción válida hasta fin de existencias.\n\nLa oferta del modelo de la Calle fantasmal LEGO® para construir solo es válida el día 24/10.\n\nPromoción limitada a un modelo de Calle fantasmal LEGO® por persona.\n\nEl modelo de la Calle fantasmal LEGO® para construir no está a la venta.\n\nEsta actividad va dirigida a peques de seis años en adelante y puede no ser apropiada para una franja de edad inferior.\n\nPromoción disponible en las tiendas participantes.\n\nLa fecha y las horas mencionadas anteriormente corresponden solo a la LEGO® Store Barcelona.",
+      "url": "https://www.lego.com/es-es/stores/events/ghost-street-barcelona",
+      "image": "https://www.lego.com/cdn/cs/set/assets/bltf755686290488393/Halloween_StorePage_V2.png?fit=crop&format=jpg&quality=80&width=1280&height=720&dpr=1"
+    }
+  ]
+}

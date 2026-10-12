@@ -1,23 +1,27 @@
 {
     "name": "lego-scraper",
     "version": "1.0.0",
-    "description": "",
+    "description": "Avisos de construcciones LEGO gratuitas en tienda, con Google Calendar",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
         "dev": "node index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "check": "node scripts/check.js",
+        "test": "node --test",
+        "scan": "node scripts/scan.js --dry-run",
+        "preview": "node scripts/preview.js",
+        "sync": "node scripts/scan.js",
+        "calendar:connect": "node scripts/connect-calendar.js"
     },
     "author": "",
     "license": "ISC",
+    "engines": { "node": ">=22.16.0" },
     "dependencies": {
-        "axios": "^1.6.8",
-        "cheerio": "^1.0.0-rc.12",
-        "cronitor": "^2.4.0",
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "node-cron": "^3.0.3",
-        "nodemailer": "^6.9.13",
-        "puppeteer": "^22.6.5"
+        "@upstash/redis": "^1.39.0",
+        "cheerio": "^1.2.0",
+        "express": "^5.3.0",
+        "luxon": "^3.7.2",
+        "nodemailer": "^10.1.0",
+        "proper-lockfile": "^4.1.2"
     }
 }
