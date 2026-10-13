@@ -155,3 +155,50 @@ test('HTTP distingue el bloqueo, los errores de fuentes y los fallos internos', 
     assert.equal(response.status, 500);
     assert.ok(!(await response.text()).includes('secret-internal-data'));
 });
+
+test('Cada correo se envía individualmente y añadir uno no reenvía a los anteriores', async () => {
+    const h = harness();
+    await runScan(h.config, h.options);
+    const state = h.readState();
+    state.preferences = { revision: 1, emailEnabled: true, recipients: [{ address: 'test@example.com', enabled: true }, { address: 'new@example.com', enabled: true }, { address: 'paused@example.com', enabled: false }] };
+    await h.options.store.write(state);
+    const result = await runScan(h.config, h.options);
+    assert.equal(result.emailsSent, 1);
+    assert.equal(h.calls.mail.length, 2);
+    assert.equal(h.calls.mail[0].opts.recipient, 'test@example.com');
+    assert.equal(h.calls.mail[1].opts.recipient, 'new@example.com');
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 0);
+});
+
+test('Un fallo parcial reintenta solo el destinatario pendiente', async () => {
+    const h = harness();
+    h.config.email.to.push('second@example.com');
+    const send = h.options.email.send;
+    h.options.email.send = async (event, options) => { if (options.recipient === 'second@example.com') throw new Error('rechazado'); return send(event, options); };
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 1);
+    h.options.email.send = send;
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 1);
+    assert.deepEqual(h.calls.mail.map(c => c.opts.recipient), ['test@example.com', 'second@example.com']);
+});
+
+test('La migración de un envío anterior a toda la lista evita repetirlo', async () => {
+    const h = harness();
+    await runScan(h.config, h.options);
+    const state = h.readState();
+    const { hash } = require('../lib/calendar');
+    for (const record of Object.values(state.events)) { delete record.deliveries; record.email[hash('test@example.com')] = record.fingerprint; }
+    state.preferences = { revision: 1, emailEnabled: true, recipients: [{ address: 'test@example.com', enabled: true }, { address: 'new@example.com', enabled: true }] };
+    await h.options.store.write(state);
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 1);
+    assert.equal(h.calls.mail[1].opts.recipient, 'new@example.com');
+});
+
+test('Pausar y reactivar correos conserva las entregas y el calendario', async () => {
+    const h = harness();
+    await runScan(h.config, h.options);
+    const state = h.readState(); state.preferences = { revision: 1, emailEnabled: false, recipients: [{ address: 'test@example.com', enabled: true }] };
+    await h.options.store.write(state);
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 0);
+    state.preferences.emailEnabled = true; await h.options.store.write({ ...h.readState(), preferences: state.preferences });
+    assert.equal((await runScan(h.config, h.options)).emailsSent, 0);
+});

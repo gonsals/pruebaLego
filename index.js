@@ -4,14 +4,25 @@ const { loadEnvironment, getConfig } = require('./lib/config');
 const { runScan } = require('./lib/scan');
 const { BusyError, createStore } = require('./lib/state');
 const { renderFeed } = require('./lib/feed');
+const { createAdminRouter } = require('./lib/admin');
+const path = require('node:path');
 
 loadEnvironment();
 
-function createApp({ config = getConfig(), scan = runScan, logger = console, store } = {}) {
+function createApp({ config = getConfig(), scan = runScan, logger = console, store, emailFactory, sessionStore } = {}) {
     const app = express();
     app.disable('x-powered-by');
+    app.set('trust proxy', config.isVercel ? 1 : false);
+    app.use((req, res, next) => {
+        res.set({ 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY',
+            'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" });
+        next();
+    });
+    app.use('/assets', express.static(path.join(__dirname, 'web/assets'), { maxAge: 0 }));
     app.get('/health', (req, res) => res.json({ status: 'ok', service: 'lego-free-builds' }));
-    app.get('/', (req, res) => res.json({ service: 'Avisos de construcciones LEGO gratuitas', health: '/health' }));
+    app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'web/index.html')));
+    const admin = createAdminRouter({ config, scan, logger, store, emailFactory, sessionStore });
+    app.use((req, res, next) => ['/login', '/admin'].includes(req.path) || req.path.startsWith('/api/admin/') ? admin(req, res, next) : next());
     app.get('/calendar/:token', async (req, res) => {
         const supplied = Buffer.from(req.params.token);
         const expected = Buffer.from(`${config.feedToken || ''}.ics`);

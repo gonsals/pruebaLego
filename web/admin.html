@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Mi panel · Brick Radar</title>
+        <link rel="stylesheet" href="/assets/style.css" />
+        <script src="/assets/admin.js" defer></script>
+    </head>
+    <body class="dashboard-page">
+        <header class="dashboard-header">
+            <div class="wrap header-inner">
+                <a class="brand" href="/"
+                    ><span class="brand-mark" aria-hidden="true">▦</span> brick
+                    radar<span class="brand-dot">.</span></a
+                ><span class="private-label"
+                    ><span class="status-dot"></span> PANEL PRIVADO</span
+                ><button class="button small ghost" id="logout">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+        <main class="wrap dashboard">
+            <div class="dashboard-title">
+                <div>
+                    <p class="eyebrow">TU RADAR DE CONSTRUCCIONES GRATIS</p>
+                    <h1>Tenemos un plan<span class="accent">.</span></h1>
+                    <p id="last-update">Cargando el estado de tu radar…</p>
+                </div>
+                <button class="button" id="refresh" disabled>
+                    ↻ Actualizar LEGO
+                </button>
+            </div>
+            <div
+                id="notice"
+                class="notice"
+                role="status"
+                aria-live="polite"
+                hidden
+            ></div>
+            <section class="stats" aria-label="Estado del servicio">
+                <article>
+                    <span>Próximas sesiones</span
+                    ><strong id="stat-sessions">—</strong
+                    ><small>Modelos para llevarte a casa</small>
+                </article>
+                <article>
+                    <span>Destinatarios activos</span
+                    ><strong id="stat-recipients">—</strong
+                    ><small id="mail-state">Cargando avisos</small>
+                </article>
+                <article>
+                    <span>Última comprobación</span
+                    ><strong id="stat-source" class="stat-text">—</strong
+                    ><small id="source-detail"
+                        >Consulta de la tienda oficial</small
+                    >
+                </article>
+            </section>
+            <nav class="tabs" aria-label="Secciones del panel">
+                <a href="#events" class="active">Próximos eventos</a
+                ><a href="#calendar">Calendario</a
+                ><a href="#recipients">Destinatarios</a
+                ><a href="#activity">Actividad</a>
+            </nav>
+            <div class="dashboard-grid">
+                <div class="main-column">
+                    <section class="panel" id="events">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">CONSTRUYE Y LLÉVATELO</p>
+                                <h2>En el horizonte</h2>
+                            </div>
+                            <span class="pill">Sin compra</span>
+                        </div>
+                        <div id="event-list" class="event-list">
+                            <p class="empty">Cargando eventos…</p>
+                        </div>
+                    </section>
+                    <section class="panel" id="calendar">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">EUROPE / MADRID</p>
+                                <h2>Tu calendario</h2>
+                            </div>
+                            <div class="calendar-controls">
+                                <button
+                                    class="icon-button"
+                                    id="prev-month"
+                                    aria-label="Mes anterior"
+                                >
+                                    ←</button
+                                ><span id="calendar-month"></span
+                                ><button
+                                    class="icon-button"
+                                    id="next-month"
+                                    aria-label="Mes siguiente"
+                                >
+                                    →
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="calendar-grid"
+                            id="calendar-grid"
+                            aria-label="Calendario de sesiones"
+                        ></div>
+                        <div
+                            id="calendar-selected"
+                            class="selected-day"
+                            aria-live="polite"
+                        ></div>
+                        <div class="subscription">
+                            <div>
+                                <h3>También en Google Calendar</h3>
+                                <p>
+                                    Añade la URL una sola vez en «Otros
+                                    calendarios → Desde URL». Google decide
+                                    cuándo refresca; este panel muestra la
+                                    última consulta de LEGO.
+                                </p>
+                            </div>
+                            <button
+                                class="button small secondary"
+                                id="copy-calendar"
+                                disabled
+                            >
+                                Copiar URL privada
+                            </button>
+                        </div>
+                    </section>
+                </div>
+                <aside class="side-column">
+                    <section class="panel" id="recipients">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">AVISOS POR CORREO</p>
+                                <h2>¿A quién avisamos?</h2>
+                            </div>
+                        </div>
+                        <form id="preferences-form">
+                            <label class="switch-row" for="email-enabled"
+                                ><span
+                                    ><strong>Enviar novedades</strong
+                                    ><small
+                                        >Pausa todos los correos cuando
+                                        quieras.</small
+                                    ></span
+                                ><input
+                                    id="email-enabled"
+                                    type="checkbox"
+                                    role="switch"
+                            /></label>
+                            <p id="mail-warning" class="micro"></p>
+                            <div id="recipient-list"></div>
+                            <label for="new-recipient" class="input-label"
+                                >Nuevo destinatario</label
+                            >
+                            <div class="add-recipient">
+                                <input
+                                    id="new-recipient"
+                                    type="email"
+                                    autocomplete="email"
+                                    placeholder="nombre@correo.com"
+                                    maxlength="254"
+                                /><button
+                                    type="button"
+                                    class="icon-button"
+                                    id="add-recipient"
+                                    aria-label="Añadir destinatario"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <button
+                                class="button save-button"
+                                id="save-preferences"
+                                type="submit"
+                                disabled
+                            >
+                                Guardar cambios
+                            </button>
+                            <p class="micro">
+                                Los cambios se aplican en la siguiente consulta.
+                                Un nuevo correo recibe los eventos vigentes.
+                                Cada aviso se envía de forma individual.
+                            </p>
+                        </form>
+                    </section>
+                    <section class="panel compact">
+                        <p class="eyebrow">LA FUENTE, SIEMPRE CERCA</p>
+                        <h2>Lo que revisamos</h2>
+                        <div id="sources"></div>
+                        <details>
+                            <summary>Anuncios descartados o pendientes</summary>
+                            <div id="decisions"></div>
+                        </details>
+                    </section>
+                </aside>
+            </div>
+            <section class="panel" id="activity">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">TODO BAJO CONTROL</p>
+                        <h2>Actividad reciente</h2>
+                    </div>
+                    <span class="pill muted">Últimas 50 operaciones</span>
+                </div>
+                <div id="activity-list"></div>
+            </section>
+            <p class="dashboard-footnote">
+                Los avisos no reservan piezas ni garantizan existencias.
+                Comprueba el anuncio oficial antes de ir. Servicio independiente
+                de LEGO.
+            </p>
+        </main>
+    </body>
+</html>

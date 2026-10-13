@@ -86,3 +86,17 @@ test('Un feed sin primera sincronización devuelve 503 sin inventar datos', asyn
     t.after(() => new Promise(resolve => server.close(resolve)));
     assert.equal((await fetch(`http://127.0.0.1:${server.address().port}/calendar/${token}.ics`)).status, 503);
 });
+
+test('El intento fallido conserva eventos y la fecha de la última consulta correcta', async () => {
+    const { store } = await snapshot();
+    const later = new Date('2026-10-13T08:00:00Z');
+    const result = await runScan(config, { store, client: { store: async () => { throw new Error('LEGO caído'); } }, now: later, logger: quiet });
+    const state = await store.read();
+    assert.equal(result.failures.length, 1);
+    assert.equal(state.sources.barcelona.successAt, now.toISOString());
+    assert.equal(state.sources.barcelona.attemptedAt, later.toISOString());
+    assert.equal(state.sources.barcelona.ok, false);
+    assert.equal(state.feed.updatedAt, now.toISOString());
+    assert.equal(state.feed.events.length, 1);
+    assert.equal(state.catalog.length, 1);
+});

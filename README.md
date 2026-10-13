@@ -6,6 +6,8 @@ Consulta la API interna de LEGO sin navegador. Si falla, intenta leer los mismos
 
 ## Puesta en marcha
 
+El plan de mejoras y el registro de comprobaciones se mantienen en [PLAN.md](PLAN.md). Las instrucciones de continuidad están en [AGENTS.md](AGENTS.md).
+
 Necesitas Node.js 22.16 o superior.
 
 ```sh
@@ -79,7 +81,30 @@ El archivo `.vercelignore` evita subir archivos `.env`, datos locales, pruebas y
 - El bloqueo de Redis dura diez minutos; el trabajo tiene un presupuesto de cuatro minutos y comprueba el bloqueo antes de escribir o enviar. El bloqueo local tiene comprobación periódica de actividad.
 - Si un anuncio elimina una sesión futura y su nuevo horario es inequívoco, se elimina esa sesión del calendario. Si desaparece el anuncio completo, no se supone que está cancelado: puede haber dejado de publicarse por otros motivos.
 
-El correo SMTP no ofrece entrega exactamente una vez: si Gmail acepta un mensaje pero se pierde la respuesta, o falla el guardado posterior, un reintento puede repetirlo. El `Message-ID` es estable para ese aviso. Las aceptaciones parciales de varios destinatarios también se registran como fallo y pueden repetir el aviso para los ya aceptados. En usos que necesiten esa garantía, conviene un proveedor con claves de idempotencia y entrega por destinatario.
+Los avisos se envían individualmente y se registran por destinatario. Añadir una dirección no repite los avisos para los destinatarios anteriores. Se migra el seguimiento de los envíos antiguos a la lista configurada en el entorno; conviene conservar `EMAIL_TO` durante la migración y editar desde el panel a partir de entonces. El correo SMTP no ofrece entrega exactamente una vez: si Gmail acepta un mensaje pero se pierde la respuesta, o falla el guardado posterior, un reintento puede repetirlo. El `Message-ID` es estable para ese aviso. En usos que necesiten esa garantía, conviene un proveedor con claves de idempotencia.
+
+## Portada y panel privado
+
+La portada se sirve en `/` y el panel en `/admin`, con acceso en `/login`. No hay registro público. El panel incluye:
+
+- Eventos confirmados y calendario mensual con horas de Madrid y enlaces oficiales.
+- Destinatarios editables, pausa individual y pausa general. Las preferencias se guardan en Redis sin desplegar de nuevo. `EMAIL_TO` y `EMAIL_ENABLED` se utilizan como valores iniciales hasta guardar las preferencias desde el panel.
+- Consulta manual de LEGO, con envío de avisos pendientes. El cron diario sigue funcionando. Guardar preferencias no envía mensajes por sí mismo.
+- Prueba de correo para destinatarios guardados, incluso con avisos pausados. La aceptación SMTP no demuestra recepción en la bandeja de entrada: comprueba spam.
+- URL privada de suscripción al calendario, fecha de última consulta correcta por tienda, anuncios excluidos e historial de las últimas 50 operaciones.
+
+Para configurar el acceso:
+
+1. Ejecuta `npm run admin:setup`. Genera una contraseña aleatoria en `.data/admin-access.txt` y guarda `ADMIN_PASSWORD_HASH` y `SESSION_SECRET` en `.env.local`.
+2. Configura esas dos variables como secretos en **Production** de Vercel. El servidor guarda un hash con sal de la contraseña; nunca la contraseña en claro.
+3. Configura `APP_URL` con el dominio público estable, sin rutas, para el enlace de suscripción. Si no está, se usa `VERCEL_PROJECT_PRODUCTION_URL` cuando esté disponible.
+4. Despliega y entra en `/login` con la contraseña del archivo privado. Las sesiones duran seis horas; en Vercel se guardan en Redis y funcionan entre instancias. En local se usa memoria para las sesiones.
+
+Para cambiar la contraseña: `npm run admin:setup -- --rotate`, actualiza ambos secretos y despliega. Eso invalida las cookies anteriores. No compartas `.data/admin-access.txt`, `.env.local` ni la URL del calendario. Las credenciales de Gmail y Google permanecen en el entorno del servidor.
+
+El acceso usa cookies `HttpOnly`, `SameSite=Strict` y `Secure` en Vercel, regeneración de sesión, comprobación de origen y token CSRF. Los intentos de acceso se limitan a diez por IP cada quince minutos; las consultas manuales y las pruebas de correo a una por minuto. Las escrituras comparten el bloqueo con el cron y rechazan cambios guardados desde una versión antigua.
+
+El panel refresca el estado visible cada minuto mientras no estés editando destinatarios. Ese refresco lee Redis: **no vuelve a consultar LEGO**. El botón «Actualizar LEGO» consulta la fuente y actualiza el calendario del panel. Google controla su propia frecuencia de actualización de la suscripción.
 
 ## Servidor y Vercel
 
@@ -104,3 +129,5 @@ npm run scan
 ```
 
 Las pruebas usan los anuncios públicos de Barcelona capturados como fixture y dobles de correo, Google y almacenamiento. Comprueban filtros, horarios, horario de verano, fallback, archivos de calendario, autorización, concurrencia, actualizaciones y recuperación de errores. La consulta `scan` valida las fuentes reales actuales; el envío real necesita credenciales configuradas.
+
+Para las pruebas del navegador, instala Chromium con `npx playwright install chromium` y ejecuta `npm run test:e2e`. También puedes usar Chrome instalado poniendo `PLAYWRIGHT_CHANNEL=chrome` (en PowerShell: `$env:PLAYWRIGHT_CHANNEL='chrome'`). El servidor de pruebas usa datos y credenciales ficticios, sin correos reales. Comprueba acceso, edición persistente, calendario, copia de URL, actualización, cierre de sesión y vista móvil; guarda capturas privadas en `.data/qa/`.
