@@ -6,6 +6,7 @@ const { BusyError, createStore } = require('./lib/state');
 const { renderFeed } = require('./lib/feed');
 const { createAdminRouter } = require('./lib/admin');
 const path = require('node:path');
+const { publicEvents } = require('./lib/public-events');
 
 loadEnvironment();
 
@@ -15,12 +16,25 @@ function createApp({ config = getConfig(), scan = runScan, logger = console, sto
     app.set('trust proxy', config.isVercel ? 1 : false);
     app.use((req, res, next) => {
         res.set({ 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY',
-            'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" });
+            'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://www.lego.com https://assets.lego.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" });
         next();
     });
     app.use('/assets', express.static(path.join(__dirname, 'web/assets'), { maxAge: 0 }));
     app.get('/health', (req, res) => res.json({ status: 'ok', service: 'lego-free-builds' }));
     app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'web/index.html')));
+    let publicStore;
+    app.get('/api/events', async (req, res) => {
+        res.set('Cache-Control', 'no-store');
+        try {
+            const state = await (store || (publicStore ||= createStore(config))).read();
+            const result = publicEvents(state, config);
+            if (!result) return res.status(503).json({ error: 'Todavía no hay una primera consulta de LEGO. Vuelve más tarde.' });
+            res.json(result);
+        } catch {
+            logger.error(JSON.stringify({ level: 'error', message: 'No se pudieron consultar los eventos públicos' }));
+            res.status(503).json({ error: 'No podemos cargar los eventos ahora. Inténtalo de nuevo en unos minutos.' });
+        }
+    });
     const admin = createAdminRouter({ config, scan, logger, store, emailFactory, sessionStore });
     app.use((req, res, next) => ['/login', '/admin'].includes(req.path) || req.path.startsWith('/api/admin/') ? admin(req, res, next) : next());
     app.get('/calendar/:token', async (req, res) => {

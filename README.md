@@ -85,6 +85,10 @@ Los avisos se envían individualmente y se registran por destinatario. Añadir u
 
 ## Portada y panel privado
 
+La portada muestra públicamente los próximos eventos confirmados, con imagen oficial, tienda, horarios de Madrid, condiciones y enlaces para abrir el anuncio o añadir una sesión a Google Calendar. No necesitas iniciar sesión para consultarlos.
+
+`GET /api/events` lee el estado ya sincronizado en Redis y publica únicamente datos del anuncio. No consulta LEGO ni envía correos; no incluye destinatarios, preferencias o la URL privada de suscripción. Las sesiones terminadas se filtran en cada petición. La portada lee esta lista cada minuto mientras está visible e indica la fecha de la última consulta de la fuente, los fallos y los datos con más de 48 horas. La muestra del correo y del calendario está marcada como ejemplo visual y no se añade a los eventos reales.
+
 La portada se sirve en `/` y el panel en `/admin`, con acceso en `/login`. No hay registro público. El panel incluye:
 
 - Eventos confirmados y calendario mensual con horas de Madrid y enlaces oficiales.

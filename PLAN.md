@@ -43,12 +43,29 @@ Este plan se revisa antes de cada cambio. Se actualizan las tareas al terminarla
 
 ## Siguientes entregas
 
+### Portada LEGO y eventos públicos (en curso)
+
+- [x] Rediseñar la portada con colores vivos, piezas y relieves inspirados en LEGO, manteniendo identidad propia.
+- [x] Mostrar próximos eventos reales sin iniciar sesión: modelo, imagen oficial, tienda, sesiones y condiciones.
+- [x] Añadir una muestra visual del aviso por correo y del calendario, identificada como ejemplo.
+- [x] Crear una consulta pública de solo lectura sobre Redis con campos explícitos; excluir destinatarios, preferencias y secretos.
+- [x] Resolver carga, ausencia de eventos, datos antiguos y fallos de consulta sin mostrar ejemplos como eventos reales.
+- [x] Probar contrato público, privacidad, fechas, imágenes, navegación y vista móvil; revisar capturas.
+- [x] Publicar en GitHub y Vercel y comprobar la portada con datos reales.
+
+Decisiones: la portada lee el estado ya sincronizado, sin lanzar el scraper ni enviar correos. Solo el administrador puede actualizar LEGO o cambiar preferencias. Conservar cron, Redis, acceso y la URL del calendario. El visitante puede abrir el anuncio oficial y añadir una sesión individual a Google Calendar, sin exponer la suscripción privada.
+
 1. Selección de otras tiendas y filtros por edad.
 2. Recordatorios antes del evento, separados del aviso de novedades.
 3. Revisión manual de anuncios ambiguos con motivo y enlace oficial.
 4. Avisos de fallos persistentes y recuperación del servicio.
 
 ## Registro
+
+- 2026-10-13: comienzo del rediseño solicitado: estética más LEGO, eventos públicos reales y muestra del servicio. Revisado el estado actual y documentado el alcance antes de modificar código.
+- 2026-10-13: implementadas estética LEGO y consulta pública `GET /api/events` con campos permitidos, imágenes oficiales HTTPS y filtrado de sesiones terminadas. Portada con lista pública, enlaces de sesión a Google Calendar, condiciones desplegables, muestra diferenciada y estados de carga/error/ausencia/datos antiguos. Pasan 69 pruebas de servidor y 6 de navegador con servicios simulados. La revisión visual detectó un selector demasiado amplio en el resumen del próximo evento; corregido y añadida comprobación del icono y la fecha.
+- 2026-10-13: tras corregir el selector, pasan de nuevo las 6 pruebas de navegador. Revisadas las capturas de escritorio y móvil a 320 y 390 px: contenido legible, navegación y tarjetas sin desbordamiento. Preparado despliegue con configuración de producción existente; no se modifican credenciales ni preferencias.
+- 2026-10-13: portada publicada y verificada en Chrome con Vercel y Redis reales: API pública 200, un evento confirmado de Barcelona, una imagen oficial cargada y enlace de sesión a Google Calendar. Sin errores JavaScript ni desbordamiento a 320/390 px; datos privados excluidos de la respuesta y administración inaccesible sin sesión. La suscripción existente sigue respondiendo 200. No se ejecutó el scraper ni se enviaron correos para esta comprobación. Cambios preparados para publicarse en las ramas `main` y `main-2` con el registro completo de esta entrega.
 
 - 2026-10-13: plan inicial documentado; comienzo del panel privado y de la gestión persistente de destinatarios.
 - 2026-10-13: implementados portada, panel, sesiones Redis, CSRF, límites de acciones, preferencias con revisión para evitar sobrescrituras, deduplicación por destinatario e historial de 50 operaciones. Pasan 62 pruebas de servidor y 2 pruebas de navegador Chrome; revisión de capturas de escritorio y móvil. Correo y fuente simulados en las pruebas del panel.

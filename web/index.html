@@ -1,97 +1,262 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta
             name="description"
-            content="Tus próximos planes para construir un modelo LEGO y llevártelo gratis. Avisos y calendario de eventos oficiales en tienda."
+            content="Descubre los próximos eventos LEGO para construir un modelo y llevártelo a casa gratis. Fechas, tiendas y avisos, sin compras."
         />
-        <title>Brick Radar · Tus próximos LEGO gratis</title>
+        <title>Brick Radar · Construye. Llévatelo. Gratis.</title>
         <link rel="stylesheet" href="/assets/style.css" />
+        <link rel="stylesheet" href="/assets/landing.css" />
+        <script src="/assets/landing.js" defer></script>
     </head>
     <body class="landing">
-        <header class="site-header wrap">
-            <a class="brand" href="/" aria-label="Brick Radar, inicio"
-                ><span class="brand-mark" aria-hidden="true">▦</span> brick
-                radar<span class="brand-dot">.</span></a
-            ><a class="button small ghost" href="/login"
-                >Abrir mi panel <span aria-hidden="true">↗</span></a
-            >
+        <header class="lego-header">
+            <div class="wrap lego-header-inner">
+                <a class="brand" href="/" aria-label="Brick Radar, inicio"
+                    ><span class="brand-mark" aria-hidden="true">▦</span> brick
+                    radar<span class="brand-dot">.</span></a
+                >
+                <nav aria-label="Navegación principal">
+                    <a href="#proximos-eventos">Próximos eventos</a
+                    ><a href="#como-funciona">Cómo funciona</a>
+                </nav>
+                <a class="button small" href="/login"
+                    >Mi panel <span aria-hidden="true">↗</span></a
+                >
+            </div>
         </header>
         <main>
-            <section class="hero wrap">
-                <div>
+            <section class="lego-hero wrap">
+                <div class="hero-text">
                     <p class="eyebrow">
-                        <span class="status-dot"></span> TU PRÓXIMA CONSTRUCCIÓN
-                        EMPIEZA AQUÍ
+                        <span class="mini-stud" aria-hidden="true"></span> UN
+                        RADAR PARA TUS PRÓXIMOS LEGO GRATIS
                     </p>
                     <h1>
-                        Pequeñas piezas.<br />Grandes planes.<br /><span
-                            class="accent"
-                            >Cero compras.</span
-                        >
+                        Construye.<br />Llévatelo.<br /><span>Gratis.</span>
                     </h1>
                     <p class="hero-copy">
-                        Encuentra los eventos de LEGO en los que construyes un
-                        modelo y te lo llevas a casa gratis. Tus avisos y tu
-                        calendario, en un solo lugar.
+                        El mejor plan empieza con unas piezas. Descubre los
+                        eventos de LEGO donde construyes un modelo y te lo
+                        llevas a casa.
                     </p>
-                    <a href="/login" class="button"
-                        >Entrar a mi panel <span aria-hidden="true">→</span></a
+                    <a href="#proximos-eventos" class="button hero-cta"
+                        >Ver próximos eventos
+                        <span aria-hidden="true">↓</span></a
                     >
-                    <p class="micro">
-                        Eventos oficiales en tienda · Sin promociones con compra
+                    <p class="hero-promise">
+                        <span aria-hidden="true">✓</span> Cero compras. Solo
+                        ganas de construir.
                     </p>
                 </div>
-                <div class="hero-art" aria-hidden="true">
-                    <div class="orbit"></div>
-                    <div class="brick brick-yellow">
-                        <i></i><i></i><i></i><i></i><i></i><i></i>
+                <div class="build-scene">
+                    <div class="scene-studs" aria-hidden="true"></div>
+                    <span class="scene-caption"
+                        >PIEZAS PEQUEÑAS. PLANES GRANDES.</span
+                    >
+                    <div class="brick-stack" aria-hidden="true">
+                        <div class="toy-brick toy-red">
+                            <i></i><i></i><i></i><i></i>
+                        </div>
+                        <div class="toy-brick toy-yellow">
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                        <div class="toy-brick toy-green"><i></i><i></i></div>
+                        <div class="toy-brick toy-blue">
+                            <i></i><i></i><i></i><i></i>
+                        </div>
+                        <div class="toy-person">
+                            <span class="person-head"><i></i></span
+                            ><span class="person-body"></span
+                            ><span class="person-legs"></span>
+                        </div>
                     </div>
-                    <div class="brick brick-red">
-                        <i></i><i></i><i></i><i></i>
+                    <div class="free-sticker">
+                        0<span>€</span><small>SIN COMPRA</small>
                     </div>
-                    <div class="art-tag">
-                        <span class="status-dot"></span> Construye. Disfruta.
-                        Llévatelo.
+                    <div class="next-plan" id="next-plan">
+                        <span class="next-plan-icon" aria-hidden="true">▦</span>
+                        <div>
+                            <strong>Tu próxima construcción te espera</strong
+                            ><span
+                                >Eventos en tienda · Modelos para llevar a
+                                casa</span
+                            >
+                        </div>
                     </div>
-                    <span class="art-number">01 / A CONSTRUIR</span>
                 </div>
             </section>
-            <section class="features wrap" aria-label="Cómo funciona">
-                <article>
-                    <span class="feature-no">01</span>
-                    <h2>Lo que sí es gratis</h2>
+            <div class="brick-divider" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span>
+            </div>
+            <section
+                class="upcoming-section wrap"
+                id="proximos-eventos"
+                aria-labelledby="events-title"
+            >
+                <div class="public-section-heading">
+                    <div>
+                        <p class="eyebrow">ELIGE TU PRÓXIMO PLAN</p>
+                        <h2 id="events-title">
+                            Lo que viene en tu tienda<span class="accent"
+                                >.</span
+                            >
+                        </h2>
+                        <p>
+                            Construcciones confirmadas para llevártelas gratis.
+                            Aquí mismo, sin iniciar sesión.
+                        </p>
+                    </div>
+                    <span class="public-count" id="event-count" hidden></span>
+                </div>
+                <div
+                    class="public-freshness"
+                    id="public-freshness"
+                    aria-live="polite"
+                >
+                    <span class="status-dot"></span> Cargando la última consulta
+                    de LEGO…
+                </div>
+                <div
+                    class="public-events"
+                    id="public-events"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
+                    <div class="public-placeholder">
+                        <span class="loading-brick" aria-hidden="true"></span>
+                        <h3>Buscando tu próximo plan</h3>
+                        <p>
+                            Estamos cargando los eventos confirmados de la
+                            tienda.
+                        </p>
+                    </div>
+                </div>
+                <button
+                    class="button secondary small retry-events"
+                    id="retry-events"
+                    type="button"
+                    hidden
+                >
+                    Volver a cargar eventos ↻
+                </button>
+                <p class="event-disclaimer">
+                    Por orden de llegada y hasta agotar existencias. Comprueba
+                    edades y condiciones en el anuncio oficial antes de ir.
+                </p>
+            </section>
+            <section class="how-section" id="como-funciona">
+                <div class="wrap">
+                    <div class="public-section-heading">
+                        <div>
+                            <p class="eyebrow">ASÍ ENCAJA TODO</p>
+                            <h2>Un buen plan, pieza a pieza.</h2>
+                            <p>
+                                De la tienda a tu calendario, para que no te lo
+                                pierdas.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="how-grid">
+                        <article>
+                            <span class="step-brick step-red">01</span>
+                            <h3>Encontramos el modelo</h3>
+                            <p>
+                                Revisamos los anuncios oficiales y buscamos los
+                                que confirman que puedes llevarte tu
+                                construcción gratis.
+                            </p>
+                        </article>
+                        <article>
+                            <span class="step-brick step-blue">02</span>
+                            <h3>Te llega el aviso</h3>
+                            <p>
+                                Los destinatarios que configures reciben las
+                                novedades y los cambios. Puedes pausar los
+                                correos desde tu panel.
+                            </p>
+                        </article>
+                        <article>
+                            <span class="step-brick step-green">03</span>
+                            <h3>Ya tienes un plan</h3>
+                            <p>
+                                Añade una sesión a Google Calendar o suscríbete
+                                al calendario privado desde el panel para ver
+                                los próximos eventos.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="sample-section wrap" aria-labelledby="sample-title">
+                <div class="sample-copy">
+                    <p class="eyebrow">UNA MUESTRA DEL SERVICIO</p>
+                    <h2 id="sample-title">Menos buscar.<br />Más construir.</h2>
                     <p>
-                        Revisamos los anuncios de la tienda y sus condiciones.
-                        Los regalos que exigen una compra quedan fuera.
+                        Un correo con lo que necesitas saber: el modelo, dónde
+                        ir, cuándo empieza y sus condiciones. Y una fecha que
+                        puedes guardar en tu calendario.
                     </p>
-                </article>
-                <article>
-                    <span class="feature-no">02</span>
-                    <h2>Avisos a tu medida</h2>
-                    <p>
-                        Gestiona los correos que reciben las novedades. Puedes
-                        pausar los envíos sin perder tu calendario.
+                    <p class="sample-caption">
+                        La muestra de la derecha es un ejemplo visual. Los
+                        eventos reales y sus fechas están arriba.
                     </p>
-                </article>
-                <article>
-                    <span class="feature-no">03</span>
-                    <h2>Un plan en tu calendario</h2>
-                    <p>
-                        Consulta las próximas sesiones en el panel y suscríbete
-                        desde Google Calendar una sola vez.
-                    </p>
-                </article>
+                    <a class="button" href="/login"
+                        >Abrir mi panel <span aria-hidden="true">→</span></a
+                    >
+                </div>
+                <div class="sample-preview">
+                    <span class="demo-label">VISTA DE EJEMPLO</span>
+                    <article class="sample-mail">
+                        <div class="sample-mail-top">
+                            <span aria-hidden="true">✉</span> Tienes un nuevo
+                            plan
+                        </div>
+                        <div class="sample-mail-body">
+                            <p class="eyebrow">BRICK RADAR · LEGO GRATIS</p>
+                            <h3>
+                                ¡Una construcción<br />para llevarte a casa!
+                            </h3>
+                            <div class="mail-mini-bricks" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <p>
+                                <strong>Tu tienda LEGO</strong><br />Fecha,
+                                horario y condiciones del evento
+                            </p>
+                            <span class="sample-calendar-button"
+                                >+ Añadir a Google Calendar</span
+                            ><small
+                                >En el aviso encontrarás el anuncio
+                                oficial.</small
+                            >
+                        </div>
+                    </article>
+                    <div class="sample-calendar">
+                        <span class="calendar-icon" aria-hidden="true">▦</span>
+                        <div>
+                            <strong>Un hueco para construir</strong
+                            ><span>Evento LEGO · En tu calendario</span>
+                        </div>
+                        <span class="calendar-check" aria-hidden="true">✓</span>
+                    </div>
+                </div>
             </section>
             <section class="landing-note wrap">
-                <p>
-                    <strong>Primero, las condiciones oficiales.</strong> Los
-                    eventos suelen tener plazas y existencias limitadas. Un
-                    aviso no reserva un modelo: comprueba el anuncio antes de
-                    ir.
-                </p>
+                <span class="note-piece" aria-hidden="true">!</span>
+                <div>
+                    <h2>Gratis de verdad. Con las condiciones claras.</h2>
+                    <p>
+                        Nos centramos en modelos para llevarte a casa. Si un
+                        anuncio exige una compra, no entra. Un aviso no reserva
+                        piezas ni garantiza existencias.
+                    </p>
+                </div>
                 <a
                     href="https://www.lego.com/es-es/stores"
                     target="_blank"
@@ -101,10 +266,15 @@
             </section>
         </main>
         <footer class="site-footer wrap">
-            <span
-                >brick radar. · Un proyecto para no perderte el próximo
-                plan.</span
-            ><span>Servicio independiente, sin afiliación con LEGO.</span>
+            <a class="brand" href="/"
+                ><span class="brand-mark" aria-hidden="true">▦</span> brick
+                radar<span class="brand-dot">.</span></a
+            >
+            <p>
+                Un proyecto para no perderte el próximo plan.<br />Servicio
+                independiente, sin afiliación con LEGO.
+            </p>
+            <a href="/login">Acceso al panel ↗</a>
         </footer>
     </body>
 </html>

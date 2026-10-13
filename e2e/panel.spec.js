@@ -34,7 +34,7 @@ test("Portada, acceso, destinatarios persistentes, actualización y calendario f
     await fs.mkdir(".data/qa", { recursive: true });
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-        "Cero compras",
+        "Gratis",
     );
     await page.screenshot({
         path: ".data/qa/landing-desktop.png",
