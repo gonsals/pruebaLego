@@ -20,8 +20,8 @@ Este plan se revisa antes de cada cambio. Se actualizan las tareas al terminarla
 - [x] Crear portada, acceso y panel adaptable a móvil con eventos, calendario y destinatarios.
 - [x] Añadir actualización manual, prueba de correo y enlace de suscripción al calendario.
 - [x] Verificar permisos, sesiones, cambios de destinatarios, reintentos y flujo completo.
-- [ ] Configurar acceso en Vercel, desplegar y comprobar la aplicación publicada.
-- [ ] Actualizar documentación, registrar resultado y publicar cambios en GitHub.
+- [x] Configurar acceso en Vercel, desplegar y comprobar la aplicación publicada.
+- [x] Actualizar documentación, registrar resultado y publicar cambios en GitHub.
 
 ## Decisiones
 
@@ -55,3 +55,20 @@ Este plan se revisa antes de cada cambio. Se actualizan las tareas al terminarla
 - 2026-10-13: comprobado proyecto de Vercel y configuración actual. Los avisos están activados en producción; se conserva esa preferencia y la URL existente del calendario. Pendiente verificar el despliegue con Redis y LEGO reales.
 - 2026-10-13: verificados acceso y guardado real en Redis, consulta manual de LEGO (1 evento, 0 fallos, 0 correos repetidos) y misma URL de calendario. Chrome publicado confirma cookie segura, calendario, cierre de sesión y móvil sin desbordamiento. Detectada una carrera al enviar el formulario antes de preparar la sesión: corregir con una única petición inicial y prueba con respuesta retrasada antes de cerrar la entrega.
 - 2026-10-13: corregida la carrera del acceso; la prueba de navegador con sesión retrasada pasa. Los recursos sin nombre versionado se revalidan al cargarlos para evitar conservar JavaScript de un despliegue anterior. Pasan las 3 pruebas de navegador. Pendiente publicar esta corrección y registrar la comprobación final.
+- 2026-10-13: entrega publicada en GitHub (`main` y `main-2`, implementación `50a2f32`) y Vercel (despliegue `dpl_RMSSEPvu6hqWLgrWJV2yxCUQHbdW`). URL: https://prueba-lego-tumarres-projects.vercel.app. Verificación final en Chrome de la aplicación pública: portada y panel 200, cookie segura, sesión revocada al salir, preferencias persistentes, calendario 200 con URL intacta, móvil sin desbordamiento y ningún error JavaScript. Se generó el acceso privado y se configuraron los secretos en Vercel.
+
+## Comprobaciones de esta entrega
+
+| Comprobación | Resultado | Servicios usados |
+| --- | --- | --- |
+| Sintaxis JavaScript | Correcta | Código local |
+| Servidor, permisos, CSRF, sesiones, filtros, fechas y deduplicación | 62 pruebas correctas | Dobles de correo, Google y almacenamiento |
+| Acceso con sesión retrasada, edición, calendario, portapapeles y móvil | 3 pruebas correctas | Chrome; fuente y correo ficticios |
+| Guardado y lectura desde el panel desplegado | Correctos, preferencias conservadas | Vercel y Redis reales |
+| Consulta manual real de LEGO | 1 evento, 0 fallos, 0 correos repetidos | Vercel, Redis y LEGO reales |
+| Panel público después del despliegue de GitHub | Acceso, sesiones, calendario y móvil correctos | Chrome y Vercel reales |
+| Credenciales en Git y archivos del despliegue | 0 coincidencias y 0 archivos privados | Inspección antes de publicar |
+
+No se envió correo SMTP de prueba real en esta entrega; las pruebas de envío utilizaron dobles. La configuración de correo que ya funcionaba en producción se conservó. Google sigue controlando la frecuencia con la que descarga su suscripción; el panel refleja nuestra última consulta de LEGO.
+
+Los archivos privados de acceso, capturas y evidencias se guardan en `.data/` y están excluidos de Git y de Vercel. El plan queda abierto a las siguientes entregas indicadas arriba; deben documentarse antes de implementarse.
